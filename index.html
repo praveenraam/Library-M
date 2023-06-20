@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title>Open Portal - Login</title>
+    <link rel="stylesheet" href="Css-File/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <br>
+    <div class="container" style="max-width: 400px;">
+        <header>
+            <h1>Login Portal</h1>
+          </header>
+          <br>
+      
+      <div class="user-details content">
+        <form action="#">
+          <div class="input-box">
+            <span class="details">Email Address</span>
+            <input id="username" type="text" placeholder="Enter your Email Address" required>
+          </div>
+          <br>
+          <div class="input-box">
+            <span class="details">Password</span>
+            <input id="password" type="password" placeholder="Enter your password" required>
+          </div>
+          <div class="button">
+            <input onclick="login()" type="submit" value="Login">
+          </div>
+         <span id="error">
+          </span>  
+        </form>
+      </div>
+      <center><div><a href="register.html">Create An Account</a></div></center>
+    </div>
+  </body>
+</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<style>
+  .container a{
+      text-decoration: none; 
+      color: grey;
+    }
+  .container a:hover{
+    text-decoration: underline;
+    color: black;
+  }
+</style>
+<script>
+  function login(){
+    event.preventDefault();   
+    var username = $('#username').val().trim();
+    var password = $('#password').val().trim();
+    $.ajax({
+      url : './api/login.php',
+      method : 'post',
+      data :{
+        "user_name" : username,
+        "pass_word" : password
+      },
+      dataType : 'json',
+      success : function(result){
+        if(result.success === true)
+        window.location.href = "https://google.com"
+        else if (result.success === false){
+          $('#error').empty();
+          $('#error').append(`<div class="error-box" style="display: block;">
+            <div class="error-message">${result.message}. Please try again.</div>
+          </div>`);
+        }
+      }
+    })
+  }
+</script>
