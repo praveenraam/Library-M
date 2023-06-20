@@ -61,9 +61,8 @@
       },
       dataType : 'json',
       success : function(result){
-        console.log("H")
         if(result.success === true)
-        window.location.href = "https://google.com"
+        window.location.href = "http://localhost/lib/";
         else if (result.success === false){
           $('#error').empty();
           $('#error').append(`<div class="error-box" style="display: block; padding:0.8rem;>
