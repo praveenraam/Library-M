@@ -62,7 +62,7 @@
       dataType : 'json',
       success : function(result){
         if(result.success === true)
-        window.location.href = "http://localhost/lib/";
+        window.location.href = "http://127.0.0.1:5500/preview.html";
         else if (result.success === false){
           $('#error').empty();
           $('#error').append(`<div class="error-box" style="display: block; padding:0.8rem;>
