@@ -81,7 +81,7 @@ if (!passwordRegex.test(passwordInput.value)) {
   return false;
 }
   $.ajax({
-    url: '../api/register.php',
+    url: './api/register.php',
     method: 'post',
     data: {
       name: nameInput.value.trim(),

@@ -61,11 +61,12 @@
       },
       dataType : 'json',
       success : function(result){
+        console.log("H")
         if(result.success === true)
         window.location.href = "https://google.com"
         else if (result.success === false){
           $('#error').empty();
-          $('#error').append(`<div class="error-box" style="display: block;">
+          $('#error').append(`<div class="error-box" style="display: block; padding:0.8rem;>
             <div class="error-message">${result.message}. Please try again.</div>
           </div>`);
         }

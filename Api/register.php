@@ -1,13 +1,13 @@
 <?php
-include './../db/connection.php';
+include './connect.php';
 $db = db();
 if ($db) {
     try {
         if (1)
          {
             extract($_POST);
-            $stmt = $db->prepare("INSERT INTO user_details (name, username, email, phone, password, country, dob) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param('sssisss',$name,$username,$email,$phone,$password,$country,$dob);
+            $stmt = $db->prepare("INSERT INTO user_details (name,email,password) VALUES ( ?, ?, ?)");
+            $stmt->bind_param('sss',$name,$email,$password);
             $stmt->execute();
             
             if ($stmt->error) {

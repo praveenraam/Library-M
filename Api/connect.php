@@ -10,7 +10,7 @@ function db()
     $host = 'localhost';
     $username = 'root';
     $password = '';
-    $database = 'ptac';;
+    $database = 'library-m';
     try {
         $db = mysqli_connect($host, $username, $password, $database);
         if ($db) {
