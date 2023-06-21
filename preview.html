@@ -9,9 +9,12 @@
             <div class="sidebar">
                 <div class="sidehead">
                     <div class="dots">
-                        <i class="fa-solid fa-circle"></i>
-                        <i class="fa-solid fa-circle" style="color: #333;"></i>
-                        <i class="fa-solid fa-circle"></i>
+                        <div>
+                            <i class="fa-solid fa-circle"></i>
+                            <i class="fa-solid fa-circle" style="color: #333;"></i>
+                            <i class="fa-solid fa-circle"></i>    
+                        </div>
+                        <h3>Search Content</h3>
                     </div>
                     <hr style="margin: 15px 0; border: 1px solid #eee;">
                 </div>
@@ -21,10 +24,13 @@
                         <i class="fa-solid fa-magnifying-glass glass" onclick="Searcher()"></i>
                     </div>
                     <div class="searchsorter">
-                        <div class="divS"><input type="radio" name="SearchType" id="searchTerm" value="q"><label for="searchTerm">General Search</label></div>
-                        <div class="divS"><input type="radio" name="SearchType" id="Author" value="inauthor"><label for="Author">Author</label></div>
-                        <div class="divS"><input type="radio" name="SearchType" id="Title" value="intitle"><label for="Title">Title</label></div>
-                        <div class="divS"><input type="radio" name="SearchType" id="Subject" value="subject"><label for="Subject">Subject</label></div>
+                        <div class="divS"><input type="radio" name="SearchType" id="searchTerm" value=""><label for="searchTerm">General Search</label></div>
+                        <div class="divS"><input type="radio" name="SearchType" id="Author" value="inauthor:"><label for="Author">Author</label></div>
+                        <div class="divS"><input type="radio" name="SearchType" id="Title" value="intitle:"><label for="Title">Title</label></div>
+                        <div class="divS"><input type="radio" name="SearchType" id="Subject" value="subject:"><label for="Subject">Subject</label></div>
+                    </div>
+                    <div>
+                        <a href="Cart.html" ><button class="cartbtn">Go to Cart</button></a>
                     </div>
                 </div>
                 <div class="sidefoot">
@@ -38,8 +44,9 @@
             </div>
             <div class="data">
                 <div class="top">
-                    <p>+91 9361368149</p>
-                    <p>naveenakct@gmail.com</p>
+                    <p>OpenBook Source</p>
+                    <p>Welcome</p>
+                    <a href="index.html"><button id="outbtn">LogOut</button></a>
                 </div>
                 <div class="header">
                     <p>READ BOOKS ONLINE</p>

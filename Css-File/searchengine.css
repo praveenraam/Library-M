@@ -156,8 +156,16 @@ button:hover{
 }
 .sidebody{
     display:grid;
+    grid-template-rows: 3fr 5fr 1fr;
 }
 .divS{
     display:flex;
     column-gap:0.5rem;
+}
+#outbtn{
+    width:8rem;
+}
+.dots{
+    display: flex;
+    column-gap:9vw;
 }

@@ -70,11 +70,19 @@ async function fetcher(){
 fetcher();
 
 const SearchValue = document.getElementById('searchBar');
-// const typeSearch = document.querySelector('input[name=SearchType]:checked').value
+
 async function Searcher(){
+    var typeSearch = "";
+    try {
+        typeSearch = document.querySelector('input[name=SearchType]:checked').value
+        console.log("No Error");
+    }
+    catch(TypeError){
+        console.log("Exception Handled - Type Error of null property");
+    }
     bodyIn.innerHTML = '';
     searchvalue =SearchValue.value
-    const SearchResult = await fetch(`https://www.googleapis.com/books/v1/volumes?q=subject:${searchvalue}`)
+    const SearchResult = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${typeSearch}${searchvalue}`)
     const response = await SearchResult.json()
     console.log(response.items[0]);
     for(i=0;i<Length[0];i++){
@@ -94,6 +102,6 @@ async function Searcher(){
 }
 
 
-function Card(){
+function Cart(){
         
 }
