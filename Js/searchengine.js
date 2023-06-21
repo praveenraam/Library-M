@@ -1,69 +1,71 @@
-const product = [
-    {
-        id: 0,
-        image: 'image/gg-1.jpg',
-        title: 'Z Flip Foldable Mobile',
-        price: 120,
-    },
-    {
-        id: 1,
-        image: 'image/hh-2.jpg',
-        title: 'Air Pods Pro',
-        price: 60,
-    },
-    {
-        id: 2,
-        image: 'image/ee-3.jpg',
-        title: '250D DSLR Camera',
-        price: 230,
-    },
-    {
-        id: 3,
-        image: 'image/aa-1.jpg',
-        title: 'Headphones',
-        price: 100,
-    },
-    {
-        id: 4,
-        image: 'image/bb-1.jpg',
-        title: 'Audio Microphone',
-        price: 230,
-    },
-    {
-        id: 5,
-        image: 'image/cc-1.jpg',
-        title: 'Smart Watch',
-        price: 100,
-    },
-];
+// const categories = [...new Set(product.map((item) => { return item }))]
 
-const categories = [...new Set(product.map((item) => { return item }))]
+// document.getElementById('searchBar').addEventListener('keyup', (e) => {
+//     const searchData = e.target.value.toLowerCase();
+//     const filteredData = categories.filter((item) => {
+//         return (
+//             item.title.toLowerCase().includes(searchData)
+//         )
+//     })
+//     displayItem(filteredData)
+// });
 
-document.getElementById('searchBar').addEventListener('keyup', (e) => {
-    const searchData = e.target.value.toLowerCase();
-    const filteredData = categories.filter((item) => {
-        return (
-            item.title.toLowerCase().includes(searchData)
-        )
-    })
-    displayItem(filteredData)
-});
+// const displayItem = (items) => {
+//     document.getElementById('root').innerHTML = items.map((item) => {
+//         var { image, title, price } = item;
+//         return (
+//             `<div class='box'>
+//                 <div class='img-box'>
+//                     <img class='images' src=${image}></img>
+//                 </div> 
+//                 <div class='bottom'>
+//                     <p>${title}</p>
+//                     <h2>$ ${price}.00</h2>
+//                 <button>Add to cart</button>
+//                 </div>
+//             </div>`
+//         )
+//     }).join('')
+// };
+// displayItem(categories);
 
-const displayItem = (items) => {
-    document.getElementById('root').innerHTML = items.map((item) => {
-        var { image, title, price } = item;
-        return (
-            `<div class='box'>
-                <div class='img-box'>
-                    <img class='images' src=${image}></img>
-                </div> 
-                <div class='bottom'>
-                    <p>${title}</p>
-                    <h2>$ ${price}.00</h2>
-                <button>Add to cart</button>
-                </div>
-            </div>`
-        )
-    }).join('')
-};
-displayItem(categories);
+const bodyIn = document.getElementById('root');
+
+let api = `AIzaSyCK2hCmzH_FH-jFn6h7TY-J-abHVZnwFcA`;
+var DATA = []; var data = []; var Value= []; var Length = [];
+
+async function fetcher(){
+        data[0] = await fetch(`https://www.googleapis.com/books/v1/volumes?q=free+books`);
+        DATA[0] = await data[0].json();
+        data[1] = await fetch(`https://www.googleapis.com/books/v1/volumes?q=college+books`);
+        DATA[1] = await data[1].json();
+        data[2] = await fetch(`https://www.googleapis.com/books/v1/volumes?q=computer+science+books`)
+        DATA[2] = await data[2].json();
+       
+        for(k=0;k<3;k++){
+            Value[k]=DATA[k].items;
+            Length[k] = Value[k].length;
+        }
+        
+        const changeData = () => {
+            for(j=0;j<3;j++){
+                for(i=0;i<Length[0];i++){
+                    let Entering = `
+                    <div class='box'>
+                        <div class='img-box'>
+                            <img class='images' src=${Value[j][i].volumeInfo.imageLinks.smallThumbnail}></img>
+                        </div>
+                        <div class='bottom'>
+                            <p>Title : ${Value[j][i].volumeInfo.title}</p>
+                            <h2>Author : ${Value[j][i].volumeInfo.authors[0]}</h2>
+                            <button>Add to cart</button>
+                        </div> 
+                    </div>` 
+                    bodyIn.innerHTML += Entering;
+                }
+            }   
+        }
+        changeData();
+}
+
+fetcher();
