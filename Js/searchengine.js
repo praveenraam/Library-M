@@ -67,5 +67,33 @@ async function fetcher(){
         }
         changeData();
 }
-
 fetcher();
+
+const SearchValue = document.getElementById('searchBar');
+// const typeSearch = document.querySelector('input[name=SearchType]:checked').value
+async function Searcher(){
+    bodyIn.innerHTML = '';
+    searchvalue =SearchValue.value
+    const SearchResult = await fetch(`https://www.googleapis.com/books/v1/volumes?q=subject:${searchvalue}`)
+    const response = await SearchResult.json()
+    console.log(response.items[0]);
+    for(i=0;i<Length[0];i++){
+        let Entering = `
+        <div class='box'>
+            <div class='img-box'>
+                <img class='images' src=${response.items[i].volumeInfo.imageLinks.smallThumbnail}></img>
+            </div>
+            <div class='bottom'>
+                <p>Title : ${response.items[i].volumeInfo.title}</p>
+                <h2>Author : ${response.items[i].volumeInfo.authors[0]}</h2>
+                <button>Add to cart</button>
+            </div> 
+        </div>` 
+        bodyIn.innerHTML += Entering;
+    }
+}
+
+
+function Card(){
+        
+}
