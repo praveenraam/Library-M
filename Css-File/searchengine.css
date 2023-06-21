@@ -35,6 +35,7 @@ body{
 }
 .searchbar{
     width: 100%;
+    height:20%;
     background-color: #eee;
     border-radius: 3px;
     padding: 9px;
@@ -146,4 +147,17 @@ button:hover{
 }
 ::-webkit-scrollbar{
     display: none;
+}
+.searchsorter{
+    display:flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    margin: 0 0 0 1rem;
+}
+.sidebody{
+    display:grid;
+}
+.divS{
+    display:flex;
+    column-gap:0.5rem;
 }

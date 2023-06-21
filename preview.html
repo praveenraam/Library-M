@@ -17,8 +17,14 @@
                 </div>
                 <div class="sidebody" style="height: 69vh;">
                     <div class="searchbar">
-                        <input placeholder="Search..." id="searchBar" name="searchBar" type="text">
-                        <i class="fa-solid fa-magnifying-glass glass"></i>
+                        <input placeholder="Search..." id="searchBar" name="searchBar" type="text" >
+                        <i class="fa-solid fa-magnifying-glass glass" onclick="Searcher()"></i>
+                    </div>
+                    <div class="searchsorter">
+                        <div class="divS"><input type="radio" name="SearchType" id="searchTerm" value="q"><label for="searchTerm">General Search</label></div>
+                        <div class="divS"><input type="radio" name="SearchType" id="Author" value="inauthor"><label for="Author">Author</label></div>
+                        <div class="divS"><input type="radio" name="SearchType" id="Title" value="intitle"><label for="Title">Title</label></div>
+                        <div class="divS"><input type="radio" name="SearchType" id="Subject" value="subject"><label for="Subject">Subject</label></div>
                     </div>
                 </div>
                 <div class="sidefoot">
