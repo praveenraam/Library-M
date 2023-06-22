@@ -60,7 +60,7 @@ async function fetcher(){
                         <div class='bottom'>
                             <p>Title : ${Value[j][i].volumeInfo.title}</p>
                             <h2>Author : ${Value[j][i].volumeInfo.authors[0]}</h2>
-                            <button onclick="Cart(${i+k})">Add to cart</button>
+                            <button onclick="Cart(${i+k});Increment();">Add to cart</button>
                         </div> 
                     </div>` 
                     bodyIn.innerHTML += Entering;
@@ -72,7 +72,7 @@ async function fetcher(){
 fetcher();
 
 const SearchValue = document.getElementById('searchBar');
-
+var SearchResult,response=[];
 async function Searcher(){
     var typeSearch = "";
     var searchResult = SearchValue.value
@@ -84,33 +84,81 @@ async function Searcher(){
         console.log("Exception Handled - Type Error of null property");
     }
     bodyIn.innerHTML = '';
-    const SearchResult = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${typeSearch}${searchResult}`)
-    const response = await SearchResult.json()
-    console.log(response.items[0]);
+    var SearchResult = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${typeSearch}${searchResult}`)
+    DATA[3] = await SearchResult.json();
+    // console.log(DATA[3].items[0]);
     for(i=0;i<Length[0];i++){
         let Entering = `
-        <div class='box'>
+        <div class='box' id="divNo${i}">
             <div class='img-box'>
-                <img class='images' src=${response.items[i].volumeInfo.imageLinks.smallThumbnail}></img>
+                <img class='images' src=${DATA[3].items[i].volumeInfo.imageLinks.smallThumbnail}></img>
             </div>
             <div class='bottom'>
-                <p>Title : ${response.items[i].volumeInfo.title}</p>
-                <h2>Author : ${response.items[i].volumeInfo.authors[0]}</h2>
-                <button onclick="Cart(${i})">Add to cart</button>
+                <p>Title : ${DATA[3].items[i].volumeInfo.title}</p>
+                <h2>Author : ${DATA[3].items[i].volumeInfo.authors[0]}</h2>
+                <button onclick="Cart(${i});Increment();">Add to cart</button>
             </div> 
         </div>` 
         bodyIn.innerHTML += Entering;
     }
 }
 
-const Cart = (N1) => console.log(N1);
+const List = document.querySelector('.listCard');
+
+const Cart = (N1) => {
+    if(DATA[3] === undefined){
+        if(N1<10){
+            console.log(DATA[0].items[N1]);
+            changeData(0,N1);
+        }
+        else if(N1<20){
+            console.log(DATA[1].items[N1-10])
+            changeData(1,N1-10);
+        }
+        else if(N1<30){
+            console.log(DATA[2].items[N1-20])
+            changeData(1,N1-20);
+        }
+    }
+    else{
+        console.log(DATA[3].items[N1])
+        changeData(3,N1);
+    }
+
+    function changeData(datValue,ItemNo){
+        let Entering = `
+                    <div class='ins-box'>
+                        <div class='img-box'>
+                            <img class='images' src=${DATA[datValue].items[ItemNo].volumeInfo.imageLinks.smallThumbnail}></img>
+                        </div>
+                        <div class='bottom'>
+                            <p class="ins-p">Title : ${DATA[datValue].items[ItemNo].volumeInfo.title}</p>
+                            <h2 class="ins-h">Author : ${DATA[datValue].items[ItemNo].volumeInfo.authors[0]}</h2>
+                            <button class="ins-btn" onclick="Decrement()" >Remove from cart</button>
+                        </div> 
+                    </div>`
+        List.innerHTML += Entering;
+    }
+}
+
+const CartValue = document.querySelector('.total')
+var noOfItems = 0;
+const Increment = () => CartValue.innerText = ++noOfItems;
+const Decrement = () => CartValue.innerText = --noOfItems;
 
 let openShopping = document.querySelector('.cartbtn');
 let closeShopping = document.querySelector('.closeShopping');
 let body = document.querySelector('body');
+
 openShopping.addEventListener('click', ()=>{
-    body.classList.add('active');
+    body.classList.toggle('active');
+    if(openShopping.innerText == "Close Cart"){
+        openShopping.innerText = "Go to Cart"
+    }
+    else{
+    openShopping.innerText = "Close Cart"}
+    
 })
-closeShopping.addEventListener('click', ()=>{
-    body.classList.remove('active');
-})
+// closeShopping.addEventListener('click', ()=>{
+//     body.classList.remove('active');
+// })

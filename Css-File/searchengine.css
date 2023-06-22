@@ -175,10 +175,13 @@ button:hover{
     position: fixed;
     top:0%;
     left: 100%;
-    width: 500px;
-    background-color: gray;
-    height: 95vh;
+    width: 500px; max-width: 500px;
+    background-color: rgb(255, 255, 255);
+    max-height:92vh;
+    overflow: scroll;
+    border: 6px solid black; border-radius:12px;
     transition: 0.5s;
+    scroll-behavior: smooth;
 }
 .active .card{
     left: calc(100% - 500px);
@@ -187,21 +190,24 @@ button:hover{
    transform: translateX(0);
 }
 .card h1{
-    color: #ffffff;
-    font-weight: 100;
+    color: #000000;
+    font-size: 2.5rem;
+    font-weight: 600;
     margin: 0;
     padding: 0 20px;
     height: 80px;
     display: flex;
     align-items: center;
 }
+.listCards{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 1.2rem;
+}
 .card .checkOut{
-    position: absolute;
-    bottom: 0;
     width: 100%;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-
 }
 .card .checkOut div{
     background-color: rgb(0, 0, 0); color: #c6c6c6;
@@ -212,4 +218,21 @@ button:hover{
     align-items: center;
     font-weight: bold;
     cursor: pointer;
+}
+
+.ins-box{
+    color:rgb(61, 61, 61);
+    display:flex; flex-direction: column;
+    border:3px solid black; border-radius: 12px;
+    margin: 15px 20px; padding:10px 20px;
+}
+.ins-h{
+    color:#333; 
+}
+.ins-h{
+    color:#333; 
+}
+.ins-btn{
+    width:70%;
+    font-size:110%;
 }
