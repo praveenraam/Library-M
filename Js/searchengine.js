@@ -78,7 +78,7 @@ async function Searcher(){
     var searchResult = SearchValue.value
     try {
         typeSearch = document.querySelector('input[name=SearchType]:checked').value
-        console.log("No Error");
+        // console.log("No Error");
     }
     catch(TypeError){
         console.log("Exception Handled - Type Error of null property");
@@ -88,7 +88,8 @@ async function Searcher(){
     DATA[3] = await SearchResult.json();
     // console.log(DATA[3].items[0]);
     for(i=0;i<Length[0];i++){
-        let Entering = `
+        try{
+            let Entering = `
         <div class='box' id="divNo${i}">
             <div class='img-box'>
                 <img class='images' src=${DATA[3].items[i].volumeInfo.imageLinks.smallThumbnail}></img>
@@ -100,6 +101,13 @@ async function Searcher(){
             </div> 
         </div>` 
         bodyIn.innerHTML += Entering;
+        }
+        catch(TypeError){
+            console.log("Exception Handled - Type Error of null property\nResult Count are less 10")
+        }
+    }
+    if(bodyIn.innerHTML == ''){
+        fetcher();
     }
 }
 
@@ -108,20 +116,20 @@ var Idno=0;
 const Cart = (N1) => {
     if(DATA[3] === undefined){
         if(N1<10){
-            console.log(DATA[0].items[N1]);
+            // console.log(DATA[0].items[N1]);
             changeData(0,N1);
         }
         else if(N1<20){
-            console.log(DATA[1].items[N1-10])
+            // console.log(DATA[1].items[N1-10])
             changeData(1,N1-10);
         }
         else if(N1<30){
-            console.log(DATA[2].items[N1-20])
+            // console.log(DATA[2].items[N1-20])
             changeData(1,N1-20);
         }
     }
     else{
-        console.log(DATA[3].items[N1])
+        // console.log(DATA[3].items[N1])
         changeData(3,N1);
     }
 
@@ -145,7 +153,7 @@ const Cart = (N1) => {
 }
 
 const cartRemover = (idno) => {
-    console.log(idno);
+    // console.log(idno);
     document.querySelector(`#removeID${idno}`).innerHTML = '';
 }
 
