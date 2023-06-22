@@ -1,34 +1,3 @@
-// const categories = [...new Set(product.map((item) => { return item }))]
-
-// document.getElementById('searchBar').addEventListener('keyup', (e) => {
-//     const searchData = e.target.value.toLowerCase();
-//     const filteredData = categories.filter((item) => {
-//         return (
-//             item.title.toLowerCase().includes(searchData)
-//         )
-//     })
-//     displayItem(filteredData)
-// });
-
-// const displayItem = (items) => {
-//     document.getElementById('root').innerHTML = items.map((item) => {
-//         var { image, title, price } = item;
-//         return (
-//             `<div class='box'>
-//                 <div class='img-box'>
-//                     <img class='images' src=${image}></img>
-//                 </div> 
-//                 <div class='bottom'>
-//                     <p>${title}</p>
-//                     <h2>$ ${price}.00</h2>
-//                 <button>Add to cart</button>
-//                 </div>
-//             </div>`
-//         )
-//     }).join('')
-// };
-// displayItem(categories);
-
 const bodyIn = document.getElementById('root');
 
 let api = `AIzaSyCK2hCmzH_FH-jFn6h7TY-J-abHVZnwFcA`;
@@ -60,7 +29,7 @@ async function fetcher(){
                         <div class='bottom'>
                             <p>Title : ${Value[j][i].volumeInfo.title}</p>
                             <h2>Author : ${Value[j][i].volumeInfo.authors[0]}</h2>
-                            <button onclick="Cart(${i+k});Increment();">Add to cart</button>
+                            <button onclick="CartAdd(${i+k});Increment();">Add to cart</button>
                         </div> 
                     </div>` 
                     bodyIn.innerHTML += Entering;
@@ -97,7 +66,7 @@ async function Searcher(){
             <div class='bottom'>
                 <p>Title : ${DATA[3].items[i].volumeInfo.title}</p>
                 <h2>Author : ${DATA[3].items[i].volumeInfo.authors[0]}</h2>
-                <button onclick="Cart(${i});Increment();">Add to cart</button>
+                <button onclick="CartAdd(${i});Increment();">Add to cart</button>
             </div> 
         </div>` 
         bodyIn.innerHTML += Entering;
@@ -112,8 +81,13 @@ async function Searcher(){
 }
 
 const List = document.querySelector('.listCard');
-var Idno=0;
-const Cart = (N1) => {
+var Idno;
+Idno = localStorage.getItem("Idno");
+if(Idno == undefined){
+    Idno = 0;
+    localStorage.setItem("Idno",Idno);
+}
+const CartAdd = (N1) => {
     if(DATA[3] === undefined){
         if(N1<10){
             // console.log(DATA[0].items[N1]);
@@ -135,6 +109,7 @@ const Cart = (N1) => {
 
     function changeData(datValue,ItemNo){
         Idno++;
+        localStorage.setItem("Idno",Idno);
         let Entering = `
                 <div id="removeID${Idno}">
                     <div class='ins-box'>
@@ -150,23 +125,28 @@ const Cart = (N1) => {
                 </div>`
         List.innerHTML += Entering;
     }
+    LocalSetter();
 }
 
 const cartRemover = (idno) => {
     // console.log(idno);
     document.querySelector(`#removeID${idno}`).innerHTML = '';
+    LocalSetter();
 }
 
 const CartValue = document.querySelector('.total')
 var noOfItems = 0;
-const Increment = () => CartValue.innerText = ++noOfItems;
-const Decrement = () => CartValue.innerText = --noOfItems;
+const Increment = () => { CartValue.innerText = ++noOfItems; localStorage.setItem("NoOfItems",noOfItems) }
+const Decrement = () => { CartValue.innerText = --noOfItems; localStorage.setItem("NoOfItems",noOfItems) }
+const LocalSetter = () => localStorage.setItem("CartBooks",List.innerHTML);
 
 let openShopping = document.querySelector('.cartbtn');
 let closeShopping = document.querySelector('.closeShopping');
 let body = document.querySelector('body');
 
 openShopping.addEventListener('click', ()=>{
+    List.innerHTML = localStorage.getItem("CartBooks");
+    localStorage.getItem("NoOfItems")
     body.classList.toggle('active');
     if(openShopping.innerText == "Close Cart"){
         openShopping.innerText = "Go to Cart"
