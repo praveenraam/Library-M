@@ -1,3 +1,34 @@
+// const categories = [...new Set(product.map((item) => { return item }))]
+
+// document.getElementById('searchBar').addEventListener('keyup', (e) => {
+//     const searchData = e.target.value.toLowerCase();
+//     const filteredData = categories.filter((item) => {
+//         return (
+//             item.title.toLowerCase().includes(searchData)
+//         )
+//     })
+//     displayItem(filteredData)
+// });
+
+// const displayItem = (items) => {
+//     document.getElementById('root').innerHTML = items.map((item) => {
+//         var { image, title, price } = item;
+//         return (
+//             `<div class='box'>
+//                 <div class='img-box'>
+//                     <img class='images' src=${image}></img>
+//                 </div> 
+//                 <div class='bottom'>
+//                     <p>${title}</p>
+//                     <h2>$ ${price}.00</h2>
+//                 <button>Add to cart</button>
+//                 </div>
+//             </div>`
+//         )
+//     }).join('')
+// };
+// displayItem(categories);
+
 const bodyIn = document.getElementById('root');
 
 let api = `AIzaSyCK2hCmzH_FH-jFn6h7TY-J-abHVZnwFcA`;
@@ -17,9 +48,9 @@ async function fetcher(){
         }
         
         const changeData = () => {
-            let k=-10;
+            let k=0;
             for(j=0;j<3;j++){
-                k+=10;
+                
                 for(i=0;i<Length[0];i++){
                     let Entering = `
                     <div class='box'>
@@ -29,7 +60,7 @@ async function fetcher(){
                         <div class='bottom'>
                             <p>Title : ${Value[j][i].volumeInfo.title}</p>
                             <h2>Author : ${Value[j][i].volumeInfo.authors[0]}</h2>
-                            <button onclick="CartAdd(${i+k});Increment();">Add to cart</button>
+                            <button onclick="CartAdd(${k++});Increment();">Add to cart</button>
                         </div> 
                     </div>` 
                     bodyIn.innerHTML += Entering;
@@ -135,9 +166,15 @@ const cartRemover = (idno) => {
 }
 
 const CartValue = document.querySelector('.total')
-var noOfItems = 0;
-const Increment = () => { CartValue.innerText = ++noOfItems; localStorage.setItem("NoOfItems",noOfItems) }
-const Decrement = () => { CartValue.innerText = --noOfItems; localStorage.setItem("NoOfItems",noOfItems) }
+var noOfItems;
+console.log(noOfItems)
+noOfItems = localStorage.getItem("noOfItems");
+if(noOfItems == undefined){
+    noOfItems = 0;
+    localStorage.setItem("noOfItems",noOfItems);
+}
+const Increment = () => { CartValue.innerText = ++noOfItems; localStorage.setItem("noOfItems",noOfItems) }
+const Decrement = () => { CartValue.innerText = --noOfItems; localStorage.setItem("noOfItems",noOfItems) }
 const LocalSetter = () => localStorage.setItem("CartBooks",List.innerHTML);
 
 let openShopping = document.querySelector('.cartbtn');
@@ -146,7 +183,7 @@ let body = document.querySelector('body');
 
 openShopping.addEventListener('click', ()=>{
     List.innerHTML = localStorage.getItem("CartBooks");
-    localStorage.getItem("NoOfItems")
+    CartValue.innerText = localStorage.getItem("noOfItems");
     body.classList.toggle('active');
     if(openShopping.innerText == "Close Cart"){
         openShopping.innerText = "Go to Cart"
