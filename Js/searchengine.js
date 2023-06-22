@@ -104,7 +104,7 @@ async function Searcher(){
 }
 
 const List = document.querySelector('.listCard');
-
+var Idno=0;
 const Cart = (N1) => {
     if(DATA[3] === undefined){
         if(N1<10){
@@ -126,7 +126,9 @@ const Cart = (N1) => {
     }
 
     function changeData(datValue,ItemNo){
+        Idno++;
         let Entering = `
+                <div id="removeID${Idno}">
                     <div class='ins-box'>
                         <div class='img-box'>
                             <img class='images' src=${DATA[datValue].items[ItemNo].volumeInfo.imageLinks.smallThumbnail}></img>
@@ -134,11 +136,17 @@ const Cart = (N1) => {
                         <div class='bottom'>
                             <p class="ins-p">Title : ${DATA[datValue].items[ItemNo].volumeInfo.title}</p>
                             <h2 class="ins-h">Author : ${DATA[datValue].items[ItemNo].volumeInfo.authors[0]}</h2>
-                            <button class="ins-btn" onclick="Decrement()" >Remove from cart</button>
+                            <button class="ins-btn" onclick="Decrement();cartRemover(${Idno})" >Remove from cart</button>
                         </div> 
-                    </div>`
+                    </div>
+                </div>`
         List.innerHTML += Entering;
     }
+}
+
+const cartRemover = (idno) => {
+    console.log(idno);
+    document.querySelector(`#removeID${idno}`).innerHTML = '';
 }
 
 const CartValue = document.querySelector('.total')
