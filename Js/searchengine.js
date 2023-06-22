@@ -48,7 +48,9 @@ async function fetcher(){
         }
         
         const changeData = () => {
+            let k=-10;
             for(j=0;j<3;j++){
+                k+=10;
                 for(i=0;i<Length[0];i++){
                     let Entering = `
                     <div class='box'>
@@ -58,7 +60,7 @@ async function fetcher(){
                         <div class='bottom'>
                             <p>Title : ${Value[j][i].volumeInfo.title}</p>
                             <h2>Author : ${Value[j][i].volumeInfo.authors[0]}</h2>
-                            <button>Add to cart</button>
+                            <button onclick="Cart(${i+k})">Add to cart</button>
                         </div> 
                     </div>` 
                     bodyIn.innerHTML += Entering;
@@ -73,6 +75,7 @@ const SearchValue = document.getElementById('searchBar');
 
 async function Searcher(){
     var typeSearch = "";
+    var searchResult = SearchValue.value
     try {
         typeSearch = document.querySelector('input[name=SearchType]:checked').value
         console.log("No Error");
@@ -81,8 +84,7 @@ async function Searcher(){
         console.log("Exception Handled - Type Error of null property");
     }
     bodyIn.innerHTML = '';
-    searchvalue =SearchValue.value
-    const SearchResult = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${typeSearch}${searchvalue}`)
+    const SearchResult = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${typeSearch}${searchResult}`)
     const response = await SearchResult.json()
     console.log(response.items[0]);
     for(i=0;i<Length[0];i++){
@@ -94,14 +96,21 @@ async function Searcher(){
             <div class='bottom'>
                 <p>Title : ${response.items[i].volumeInfo.title}</p>
                 <h2>Author : ${response.items[i].volumeInfo.authors[0]}</h2>
-                <button>Add to cart</button>
+                <button onclick="Cart(${i})">Add to cart</button>
             </div> 
         </div>` 
         bodyIn.innerHTML += Entering;
     }
 }
 
+const Cart = (N1) => console.log(N1);
 
-function Cart(){
-        
-}
+let openShopping = document.querySelector('.cartbtn');
+let closeShopping = document.querySelector('.closeShopping');
+let body = document.querySelector('body');
+openShopping.addEventListener('click', ()=>{
+    body.classList.add('active');
+})
+closeShopping.addEventListener('click', ()=>{
+    body.classList.remove('active');
+})
