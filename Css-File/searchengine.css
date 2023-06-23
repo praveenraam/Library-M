@@ -34,8 +34,9 @@ body{
     color: orangered;
 }
 .searchbar{
+    align-self: flex-start;
     width: 100%;
-    height:20%;
+    height:2.5rem;
     background-color: #eee;
     border-radius: 3px;
     padding: 9px;
@@ -133,9 +134,7 @@ h2{
     color: orangered;
 }
 button{
-    width: 100%;
-    position: relative;
-    border: none;
+    width:15vw;
     border-radius: 5px;
     background-color: #333;
     padding: 7px 25px;
@@ -149,14 +148,8 @@ button:hover{
     display: none;
 }
 .searchsorter{
-    display:flex;
-    flex-direction: column;
-    row-gap: 1rem;
-    margin: 0 0 0 1rem;
 }
 .sidebody{
-    display:grid;
-    grid-template-rows: 3fr 5fr 1fr;
 }
 .divS{
     display:flex;
@@ -235,4 +228,28 @@ button:hover{
 .ins-btn{
     width:70%;
     font-size:110%;
+}
+.btncont{
+    display: flex; justify-content: center; align-items: center;
+}
+.cartbtn{
+    width:15vw;
+}
+
+
+@media (min-width:875px) and (max-width:1285px){
+    #root{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+    }
+}
+@media (max-width:900px){
+    #root{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 20px;
+    }
 }
