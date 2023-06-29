@@ -162,7 +162,7 @@ const LocalSetter = () => localStorage.setItem("CartBooks",List.innerHTML);
 let openShopping = document.querySelector('.cartbtn');
 let closeShopping = document.querySelector('.closeShopping');
 let body = document.querySelector('body');
-//Setting AddTocart items to CartPart Of the Page
+//Setting AddTocart items to CartPart Of the Page from LocalStorage and Button Text , class is toggled
 openShopping.addEventListener('click', ()=>{
     List.innerHTML = localStorage.getItem("CartBooks");
     CartValue.innerText = localStorage.getItem("noOfItems");
@@ -172,7 +172,6 @@ openShopping.addEventListener('click', ()=>{
     }
     else{
     openShopping.innerText = "Close Cart"}
-    
 })
 
 //Clearing LocalStorage in logout click
