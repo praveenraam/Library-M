@@ -93,7 +93,7 @@ if (!passwordRegex.test(passwordInput.value)) {
     success: function (result) {
       //  console.log(result);
         if (result.success === true) {
-            window.location.href = "./../index.html";
+            window.location.href = "./index.html";
         } else if (result.success === false) {
            alert(result.message);
         }
